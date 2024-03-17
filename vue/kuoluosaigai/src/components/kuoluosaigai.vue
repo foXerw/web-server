@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'HelloWorld',
   props: {
@@ -13,15 +15,26 @@ export default {
   },
   data() {
     return {
-      count: 0 // 初始化计数器为0
+      count: 0,
     };
   },
   methods: {
-    incrementCount() {
-      this.count += 1; // 点击时增加计数
-    }
-  }
-}
+    async incrementCount() {
+      try {
+        // 这里替换为您的实际API URL
+        const response = await axios.get('http://kuoluosaigai.com:8000/api/nothing');
+
+        if (response.status === 200) {
+          this.count = response.data.count;
+        } else {
+          console.error('Error fetching data:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Request failed with error:', error);
+      }
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
